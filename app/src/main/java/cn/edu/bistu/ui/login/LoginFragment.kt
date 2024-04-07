@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import cn.edu.bistu.R
 import cn.edu.bistu.databinding.FragmentLoginBinding
+import cn.edu.bistu.util.ToastUtil
 
 class LoginFragment : Fragment() {
 
@@ -33,6 +35,13 @@ class LoginFragment : Fragment() {
         mBind.back.setOnClickListener {
             Navigation.findNavController(requireActivity(), R.id.container).popBackStack()
         }
+        mBind.confirm.setOnClickListener {
+            viewModel.login(mBind.email.text.toString(), mBind.password.text.toString())
+        }
+
+        viewModel.toastMessage.observe(viewLifecycleOwner, Observer {
+            ToastUtil.show(requireContext(), it)
+        })
         return mBind.root
     }
 

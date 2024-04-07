@@ -61,4 +61,6 @@ dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
+    // okhttp
+    implementation(libs.com.squareup.okhttp3.okhttp)
 }
