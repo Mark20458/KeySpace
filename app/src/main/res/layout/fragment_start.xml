@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?><!--选择登录或者注册-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@id/register"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <cn.edu.bistu.widget.ArcView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:arcHeight="30dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/welcome"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_5dp"
+        android:text="@string/register"
+        android:textSize="@dimen/textSize_m_18dp"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/cornerRadius_5dp"
+        app:layout_constraintBottom_toTopOf="@id/login" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_5dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/login"
+        android:textColor="@color/design_default_color_primary"
+        android:textSize="@dimen/textSize_m_18dp"
+        android:textStyle="bold"
+        app:cornerRadius="@dimen/cornerRadius_5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:strokeColor="@color/design_default_color_primary"
+        app:strokeWidth="1dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
