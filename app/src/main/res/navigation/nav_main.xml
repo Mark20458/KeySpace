@@ -13,6 +13,11 @@
         <action
             android:id="@+id/action_startFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_lockFragment"
+            app:destination="@id/lockFragment"
+            app:popUpTo="@id/startFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -32,4 +37,16 @@
         android:name="cn.edu.bistu.ui.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/lockFragment"
+        android:name="cn.edu.bistu.ui.lock.LockFragment"
+        android:label="LockFragment"
+        tools:layout="@layout/fragment_lock">
+        <action
+            android:id="@+id/action_lockFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/lockFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

@@ -10,6 +10,7 @@ import cn.edu.bistu.util.ToastUtil
 import cn.edu.bistu.util.dataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
 class NetworkViewModel : ViewModel() {
@@ -26,18 +27,17 @@ class NetworkViewModel : ViewModel() {
         )
         Api.post("login", map, object : Api.Handler {
             override fun success(jsonObject: JSONObject) {
-                viewModelScope.launch {
-                    launch(Dispatchers.Main) {
-                        ToastUtil.show(jsonObject.getString("msg"))
-                        callback.invoke()
-                    }
+                viewModelScope.launch(Dispatchers.Main) {
+                    ToastUtil.show(jsonObject.getString("msg"))
                     if (jsonObject.getInt("code") != 101) return@launch
-                    App.getInstance().dataStore.edit {
-                        it[PreferencesKey.TOKEN] = jsonObject.getString("data")
-                        it[PreferencesKey.MASTER_PASSWORD] = masterPassword
-                        it[PreferencesKey.LOGIN_STATE] = true
+                    callback.invoke()
+                    runBlocking {
+                        App.getInstance().dataStore.edit {
+                            it[PreferencesKey.TOKEN] = jsonObject.getString("data")
+                            it[PreferencesKey.MASTER_PASSWORD] = masterPassword
+                            it[PreferencesKey.LOGIN_STATE] = true
+                        }
                     }
-
                 }
             }
         })
