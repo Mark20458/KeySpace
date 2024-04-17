@@ -6,4 +6,5 @@
     <dimen name="title_size_24sp">24sp</dimen>
     <dimen name="margin_top_10dp">10dp</dimen>
     <dimen name="margin_start_10dp">10dp</dimen>
+    <dimen name="margin_end_10dp">10dp</dimen>
 </resources>

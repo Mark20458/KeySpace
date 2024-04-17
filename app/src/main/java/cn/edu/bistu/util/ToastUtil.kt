@@ -1,12 +1,12 @@
 package cn.edu.bistu.util
 
-import android.content.Context
 import android.widget.Toast
+import cn.edu.bistu.App
 
 class ToastUtil {
     companion object {
-        fun show(context: Context, message: String) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        fun show(message: String, length: Int = Toast.LENGTH_SHORT) {
+            Toast.makeText(App.getInstance(), message, length).show()
         }
     }
 }

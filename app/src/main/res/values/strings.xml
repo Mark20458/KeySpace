@@ -11,4 +11,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_register">注册</string>
     <string name="confirm_password">确认密码</string>
+    <string name="set_password">设置登录密码</string>
+    <string name="back">返回</string>
+    <string name="master_password">主密码</string>
 </resources>

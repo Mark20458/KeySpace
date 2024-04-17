@@ -6,31 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".ui.start.StartFragment">
 
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
+    <!--标题栏-->
+    <LinearLayout
+        android:id="@+id/ll_title_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_start_10dp"
         android:layout_marginTop="@dimen/margin_top_10dp"
-        android:importantForAccessibility="no"
-        android:scaleType="fitCenter"
-        android:src="@drawable/baseline_arrow_back_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_start_10dp"
-        android:layout_marginTop="@dimen/margin_5dp"
         android:gravity="center_vertical"
-        android:text="@string/title_login"
-        android:textSize="@dimen/title_size_24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/back"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_10dp"
+            android:layout_marginEnd="@dimen/margin_end_10dp"
+            android:contentDescription="@string/back"
+            android:scaleType="fitCenter"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_start_10dp"
+            android:gravity="center_vertical"
+            android:text="@string/title_login"
+            android:textSize="@dimen/title_size_24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!--邮箱-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_layout"
         android:layout_width="match_parent"
@@ -39,7 +46,8 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="@dimen/margin_5dp"
         android:hint="@string/email"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        app:errorTextColor="@color/red"
+        app:layout_constraintTop_toBottomOf="@id/ll_title_bar">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
@@ -49,6 +57,7 @@
             tools:text="gongzheng0815@qq.com" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!--密码-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_layout"
         android:layout_width="match_parent"
@@ -58,10 +67,53 @@
         android:layout_marginEnd="@dimen/margin_5dp"
         android:hint="@string/password"
         app:endIconMode="password_toggle"
+        app:errorTextColor="@color/red"
         app:layout_constraintTop_toBottomOf="@id/email_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            tools:text="16692865351" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--确认密码-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirm_password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_5dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="@dimen/margin_5dp"
+        android:hint="@string/confirm_password"
+        app:endIconMode="password_toggle"
+        app:errorTextColor="@color/red"
+        app:layout_constraintTop_toBottomOf="@id/password_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            tools:text="16692865351" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--主密码-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/master_password_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_5dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="@dimen/margin_5dp"
+        android:hint="@string/master_password"
+        app:endIconMode="password_toggle"
+        app:errorTextColor="@color/red"
+        app:layout_constraintTop_toBottomOf="@id/confirm_password_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/master_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -78,5 +130,5 @@
         android:textSize="@dimen/textSize_m_18dp"
         android:textStyle="bold"
         app:cornerRadius="@dimen/cornerRadius_5dp"
-        app:layout_constraintTop_toBottomOf="@id/password_layout" />
+        app:layout_constraintTop_toBottomOf="@id/master_password_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

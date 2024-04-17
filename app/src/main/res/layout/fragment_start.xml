@@ -14,7 +14,7 @@
         <cn.edu.bistu.widget.ArcView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:arcHeight="30dp" />
+            app:arcHeight="40dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

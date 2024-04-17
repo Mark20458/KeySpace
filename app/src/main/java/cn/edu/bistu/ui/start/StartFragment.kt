@@ -9,6 +9,9 @@ import androidx.navigation.Navigation
 import cn.edu.bistu.R
 import cn.edu.bistu.databinding.FragmentStartBinding
 
+/**
+ * 第一次登录选择登录或注册
+ */
 class StartFragment : Fragment() {
 
     companion object {
@@ -29,14 +32,19 @@ class StartFragment : Fragment() {
     ): View {
         mBind = FragmentStartBinding.inflate(inflater)
 
+        // 点击登录按钮
         mBind.login.setOnClickListener {
-            Navigation.findNavController(requireActivity(), R.id.container)
-                .navigate(R.id.action_startFragment_to_loginFragment)
+            val bundle = Bundle()
+            bundle.putBoolean("login", true)
+            val controller = Navigation.findNavController(requireActivity(), R.id.container)
+            controller.navigate(R.id.action_startFragment_to_loginFragment, bundle)
         }
-
+        // 点击注册按钮
         mBind.register.setOnClickListener {
-            Navigation.findNavController(requireActivity(), R.id.container)
-                .navigate(R.id.action_startFragment_to_registerFragment)
+            val bundle = Bundle()
+            bundle.putBoolean("login", false)
+            val controller = Navigation.findNavController(requireActivity(), R.id.container)
+            controller.navigate(R.id.action_startFragment_to_loginFragment, bundle)
         }
         return mBind.root
     }
