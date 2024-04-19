@@ -7,9 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import cn.edu.bistu.databinding.ActivityMainBinding
 import cn.edu.bistu.util.PreferencesKey
-import cn.edu.bistu.util.dataStore
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import cn.edu.bistu.util.SPUtil
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBind: ActivityMainBinding
@@ -22,10 +20,8 @@ class MainActivity : AppCompatActivity() {
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
         navController = navHostFragment.navController
-        runBlocking {
-            if (this@MainActivity.dataStore.data.first()[PreferencesKey.LOGIN_STATE] == true) {
-                navController.navigate(R.id.action_startFragment_to_lockFragment)
-            }
+        if (SPUtil.getBoolean(PreferencesKey.LOGIN_STATE)) {
+            navController.navigate(R.id.action_startFragment_to_lockFragment)
         }
     }
 

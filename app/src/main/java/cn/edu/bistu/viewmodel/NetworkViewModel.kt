@@ -1,16 +1,13 @@
 package cn.edu.bistu.viewmodel
 
-import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cn.edu.bistu.App
 import cn.edu.bistu.network.Api
 import cn.edu.bistu.util.PreferencesKey
+import cn.edu.bistu.util.SPUtil
 import cn.edu.bistu.util.ToastUtil
-import cn.edu.bistu.util.dataStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
 class NetworkViewModel : ViewModel() {
@@ -31,13 +28,9 @@ class NetworkViewModel : ViewModel() {
                     ToastUtil.show(jsonObject.getString("msg"))
                     if (jsonObject.getInt("code") != 101) return@launch
                     callback.invoke()
-                    runBlocking {
-                        App.getInstance().dataStore.edit {
-                            it[PreferencesKey.TOKEN] = jsonObject.getString("data")
-                            it[PreferencesKey.MASTER_PASSWORD] = masterPassword
-                            it[PreferencesKey.LOGIN_STATE] = true
-                        }
-                    }
+                    SPUtil.saveString(PreferencesKey.TOKEN, jsonObject.getString("data"))
+                    SPUtil.saveString(PreferencesKey.MASTER_PASSWORD, masterPassword)
+                    SPUtil.saveBoolean(PreferencesKey.LOGIN_STATE, true)
                 }
             }
         })

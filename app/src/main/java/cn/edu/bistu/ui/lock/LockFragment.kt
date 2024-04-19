@@ -22,7 +22,7 @@ class LockFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBind = FragmentLockBinding.inflate(inflater)
-        mBind.a.setOnClickListener {
+        mBind.root.setOnClickListener {
             Navigation.findNavController(requireActivity(), R.id.container)
                 .navigate(R.id.action_lockFragment_to_mainFragment)
         }

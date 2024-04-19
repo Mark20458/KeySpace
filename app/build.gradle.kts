@@ -64,6 +64,6 @@ dependencies {
     // okhttp
     implementation(libs.com.squareup.okhttp3.okhttp)
 
-    // Preferences DataStore
-    implementation(libs.androidx.datastore.preferences)
+    // https://mvnrepository.com/artifact/com.tencent/mmkv
+    implementation(libs.tencent.mmkv)
 }

@@ -2,7 +2,6 @@ package cn.edu.bistu.network
 
 import android.os.Handler
 import android.os.Looper
-import cn.edu.bistu.App
 import cn.edu.bistu.util.ToastUtil
 import okhttp3.Call
 import okhttp3.Callback
