@@ -30,8 +30,10 @@ class MainActivity : AppCompatActivity() {
             mBind.container.visibility = View.VISIBLE
             mBind.blank.visibility = View.GONE
         } else {
-            mBind.container.visibility = View.GONE
-            mBind.blank.visibility = View.VISIBLE
+            if (App.getInstance().isBlank) {
+                mBind.container.visibility = View.GONE
+                mBind.blank.visibility = View.VISIBLE
+            }
         }
     }
 }

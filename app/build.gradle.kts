@@ -66,4 +66,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.tencent/mmkv
     implementation(libs.tencent.mmkv)
+
+    // 添加生物验证：指纹验证
+    implementation(libs.androidx.biometric)
 }

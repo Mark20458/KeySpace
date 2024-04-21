@@ -7,7 +7,7 @@
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:layout_marginBottom="100dp"
         android:background="#303F9F"
         app:layout_constraintTop_toTopOf="parent">
@@ -17,29 +17,72 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="请输入主密码进行登录"
+            android:text="@string/please_input_master_password_to_login"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
     </FrameLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/input"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="@dimen/margin_5dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="@dimen/margin_5dp"
-        android:hint="@string/confirm_password"
-        app:endIconCheckable="true"
-        app:endIconDrawable="@drawable/fingerprint"
-        app:endIconMode="custom"
-        app:endIconScaleType="fitCenter"
+        android:background="@drawable/unfocus_login_bg"
+        android:fitsSystemWindows="true"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/frame_layout">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:autofillHints="password"
+            android:background="@null"
+            android:hint="@string/please_input_master_password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toStartOf="@id/icon1"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/icon1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_5dp"
+            android:src="@drawable/baseline_arrow_forward_24"
+            app:layout_constraintEnd_toStartOf="@id/separator" />
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="@dimen/margin_5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/icon2" />
+
+        <ImageView
+            android:id="@+id/icon2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/margin_5dp"
+            android:src="@drawable/baseline_fingerprint_24"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/margin_5dp"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/input" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

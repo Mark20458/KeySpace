@@ -14,4 +14,6 @@
     <string name="set_password">设置登录密码</string>
     <string name="back">返回</string>
     <string name="master_password">主密码</string>
+    <string name="please_input_master_password_to_login">请输入主密码进行登录</string>
+    <string name="please_input_master_password">请输入主密码</string>
 </resources>
