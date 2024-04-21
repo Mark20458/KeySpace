@@ -47,6 +47,9 @@ class LockFragment : Fragment(), View.OnClickListener {
         mBind = FragmentLockBinding.inflate(inflater)
         initView()
         initListener()
+        if (SPUtil.getBoolean(PreferencesKey.IS_BIOMETRIC_ENABLE, true)) {
+            useFingerprintUnlock()
+        }
         return mBind.root
     }
 
@@ -113,7 +116,7 @@ class LockFragment : Fragment(), View.OnClickListener {
             mBind.icon2.id -> {
                 if (iconCount == 1) {
                     // 判断是否开启了指纹解锁功能，默认开启该功能
-                    if (SPUtil.getBoolean(PreferencesKey.IS_BIOMETRIC_ENABLE, false)) {
+                    if (SPUtil.getBoolean(PreferencesKey.IS_BIOMETRIC_ENABLE, true)) {
                         // 进行指纹解锁
                         useFingerprintUnlock()
                     } else {
