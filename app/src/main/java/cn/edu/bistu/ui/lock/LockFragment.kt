@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import cn.edu.bistu.App
 import cn.edu.bistu.R
 import cn.edu.bistu.databinding.FragmentLockBinding
 import cn.edu.bistu.util.InputMethodUtil
@@ -30,7 +29,7 @@ class LockFragment : Fragment(), View.OnClickListener {
     private var iconCount: Int = 1
 
     //是否显示密码
-    private var showPassword: Boolean = false;
+    private var showPassword: Boolean = false
 
     // 取消显示tip
     private var cancelShowTipJob: Job? = null
@@ -150,7 +149,6 @@ class LockFragment : Fragment(), View.OnClickListener {
     }
 
     private fun useFingerprintUnlock() {
-        val isBlank = App.getInstance().isBlank
         val executor = ContextCompat.getMainExecutor(requireActivity())
         val biometricPrompt =
             BiometricPrompt(this,
@@ -160,28 +158,17 @@ class LockFragment : Fragment(), View.OnClickListener {
                     override fun onAuthenticationSucceeded(
                         result: BiometricPrompt.AuthenticationResult
                     ) {
-                        App.getInstance().isBlank = isBlank
                         Navigation.findNavController(
                             requireActivity(),
                             R.id.container
                         ).navigate(R.id.action_lockFragment_to_mainFragment)
                     }
 
-                    override fun onAuthenticationFailed() {
-                        App.getInstance().isBlank = isBlank
-                        super.onAuthenticationFailed()
-                    }
-
-                    override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                        App.getInstance().isBlank = isBlank
-                        super.onAuthenticationError(errorCode, errString)
-                    }
                 }
             )
         val promptInfo = BiometricPrompt.PromptInfo.Builder().setTitle("KeySpace")
             .setNegativeButtonText("取消")
             .build()
-        App.getInstance().isBlank = false
         biometricPrompt.authenticate(promptInfo)
     }
 

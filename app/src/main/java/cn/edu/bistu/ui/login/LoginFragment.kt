@@ -16,9 +16,6 @@ import cn.edu.bistu.util.ToastUtil
 import cn.edu.bistu.viewmodel.NetworkViewModel
 
 
-/**
- * TODO 邮箱 密码 确认密码 主密码格式确认
- */
 class LoginFragment : Fragment(), View.OnClickListener {
     companion object {
         const val TAG = "login"

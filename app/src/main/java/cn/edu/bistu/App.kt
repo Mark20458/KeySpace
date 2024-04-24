@@ -1,17 +1,23 @@
 package cn.edu.bistu
 
 import android.app.Application
+import cn.edu.bistu.database.database.DB
 import com.tencent.mmkv.MMKV
+import java.util.Stack
 
 class App : Application() {
-    /**
-     * 当MainActivity失去焦点时是否展示为空白
-     */
-    var isBlank: Boolean = true
+    var stack: Stack<Int> = Stack<Int>()
+    lateinit var db: DB
+
+    init {
+        stack.push(-1)
+    }
+
     override fun onCreate() {
         super.onCreate()
         // 初始化MMKV
         MMKV.initialize(this)
+        db = DB.getDatabase(this)
         instance = this
     }
 
