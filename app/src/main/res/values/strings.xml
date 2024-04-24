@@ -16,4 +16,5 @@
     <string name="master_password">主密码</string>
     <string name="please_input_master_password_to_login">请输入主密码进行登录</string>
     <string name="please_input_master_password">请输入主密码</string>
+    <string name="create">创建</string>
 </resources>

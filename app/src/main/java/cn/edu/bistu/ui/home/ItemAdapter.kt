@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import cn.edu.bistu.R
 import cn.edu.bistu.database.model.Item
 import cn.edu.bistu.databinding.ItemPasswordBinding
 
@@ -25,5 +26,10 @@ class ItemAdapter(private val list: List<Item>) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = list[position]
         holder.mBind.itemName.text = position.toString()
+        if (item.isKey) {
+            holder.mBind.type.setImageResource(R.drawable.key)
+        } else {
+            holder.mBind.type.setImageResource(R.drawable.folder)
+        }
     }
 }

@@ -75,7 +75,7 @@ class MainFragment : Fragment() {
 
         }
 
-        mBind.viewpager.currentItem
+        mBind.viewpager.isUserInputEnabled = false
         TabLayoutMediator(
             mBind.tabLayout, mBind.viewpager
         ) { tab: TabLayout.Tab, position: Int ->
