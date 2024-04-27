@@ -36,7 +36,11 @@
         android:id="@+id/mainFragment"
         android:name="cn.edu.bistu.ui.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_createFragment"
+            app:destination="@id/createFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/lockFragment"
@@ -49,4 +53,9 @@
             app:popUpTo="@id/lockFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="cn.edu.bistu.ui.home.CreateFragment"
+        android:label="CreateFragment"
+        tools:layout="@layout/fragment_create" />
 </navigation>

@@ -17,4 +17,5 @@
     <string name="please_input_master_password_to_login">请输入主密码进行登录</string>
     <string name="please_input_master_password">请输入主密码</string>
     <string name="create">创建</string>
+    <string name="please_click_create">这里什么也没有，点击 + 创建吧！</string>
 </resources>

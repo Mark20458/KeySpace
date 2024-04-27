@@ -16,7 +16,8 @@ class DBViewModel : ViewModel() {
     fun updateList() {
         viewModelScope.launch {
             _list.value =
-                App.getInstance().db.getItemDao().getItemByParentId(App.getInstance().stack.peek())
+                App.getInstance().db.getItemDao()
+                    .getItemByParentId(App.getInstance().stack.peek().id)
                     .first()
         }
     }

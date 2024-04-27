@@ -10,10 +10,22 @@ import cn.edu.bistu.databinding.ItemPasswordBinding
 
 class ItemAdapter(private val list: List<Item>) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
-    class ItemViewHolder(val mBind: ItemPasswordBinding) : ViewHolder(mBind.root) {
+    class ItemViewHolder(val mBind: ItemPasswordBinding) : ViewHolder(mBind.root)
 
-    }
+    /**
+     * 点击密钥的回调
+     */
+    var clickKey: ((item: Item) -> Unit)? = null
 
+    /**
+     * 点击文件夹的回调
+     */
+    var clickFolder: ((item: Item) -> Unit)? = null
+
+    /**
+     * 长按事件
+     */
+    var longClickItem: ((item: Item) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = ItemPasswordBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(view)
@@ -27,9 +39,19 @@ class ItemAdapter(private val list: List<Item>) :
         val item = list[position]
         holder.mBind.itemName.text = position.toString()
         if (item.isKey) {
+            holder.mBind.root.setOnClickListener {
+                clickKey?.invoke(item)
+            }
             holder.mBind.type.setImageResource(R.drawable.key)
         } else {
+            holder.mBind.root.setOnClickListener {
+                clickFolder?.invoke(item)
+            }
             holder.mBind.type.setImageResource(R.drawable.folder)
+        }
+        holder.mBind.root.setOnLongClickListener {
+            longClickItem?.invoke(item)
+            return@setOnLongClickListener true
         }
     }
 }

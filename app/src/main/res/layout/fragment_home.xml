@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:background="#64B5F6"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,18 +21,18 @@
             android:src="@drawable/baseline_arrow_back_24" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="root"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="21sp"
             android:textStyle="bold"
             tools:text="根节点" />
     </RelativeLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,8 +41,21 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </androidx.core.widget.NestedScrollView>
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/please_click_create"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </FrameLayout>
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
