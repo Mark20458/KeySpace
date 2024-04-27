@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cn.edu.bistu.App
 import cn.edu.bistu.database.model.Item
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -19,6 +20,12 @@ class DBViewModel : ViewModel() {
                 App.getInstance().db.getItemDao()
                     .getItemByParentId(App.getInstance().stack.peek().id)
                     .first()
+        }
+    }
+
+    fun save(item: Item) {
+        viewModelScope.launch(Dispatchers.IO) {
+            App.getInstance().db.getItemDao().insertItem(item)
         }
     }
 }

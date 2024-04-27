@@ -96,17 +96,12 @@ class HomeFragment : Fragment() {
 
                 when (it.itemId) {
                     R.id.password -> {
-                        val bundle = Bundle()
-                        bundle.putBoolean("isKey", true)
                         Navigation.findNavController(requireActivity(), R.id.container)
-                            .navigate(R.id.action_mainFragment_to_createFragment, bundle)
+                            .navigate(R.id.action_mainFragment_to_createFragment)
                     }
 
                     R.id.folder -> {
-                        val bundle = Bundle()
-                        bundle.putBoolean("isKey", false)
-                        Navigation.findNavController(requireActivity(), R.id.container)
-                            .navigate(R.id.action_mainFragment_to_createFragment, bundle)
+                        // TODO 弹出创建文件夹的弹窗
                     }
                 }
                 return@setOnMenuItemClickListener true

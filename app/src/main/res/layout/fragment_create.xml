@@ -26,15 +26,141 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
+            android:text="创建密钥"
             android:textColor="@color/black"
             android:textSize="21sp"
-            android:textStyle="bold"
-            tools:text="创建密钥" />
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/save" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/a"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/topBar">
+
+        <!--名称-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="名称"
+            app:errorTextColor="@color/red"
+            app:layout_constraintTop_toBottomOf="@id/ll_title_bar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textWebEmailAddress"
+                tools:text="123456" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--用户名-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="用户名/手机号/邮箱"
+            app:errorTextColor="@color/red"
+            app:layout_constraintTop_toBottomOf="@id/ll_title_bar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textWebEmailAddress"
+                tools:text="sligine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--密码-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="密码"
+            app:endIconMode="password_toggle"
+            app:errorTextColor="@color/red"
+            app:layout_constraintTop_toBottomOf="@id/ll_title_bar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                tools:text="sligine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/generate_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="生成密码"
+            app:icon="@drawable/generate" />
+
+        <!--网址-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/url_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="网站地址"
+            app:errorTextColor="@color/red"
+            app:layout_constraintTop_toBottomOf="@id/ll_title_bar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textWebEmailAddress"
+                tools:text="www.baidu.com" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--网址名称-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/website_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="网址名称"
+            app:errorTextColor="@color/red"
+            app:layout_constraintTop_toBottomOf="@id/ll_title_bar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/website_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textWebEmailAddress"
+                tools:text="百度" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--附注-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/note_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="附注"
+            app:errorTextColor="@color/red"
+            app:layout_constraintTop_toBottomOf="@id/ll_title_bar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textWebEmailAddress"
+                tools:text="sligine" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
