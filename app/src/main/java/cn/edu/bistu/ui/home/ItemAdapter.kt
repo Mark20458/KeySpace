@@ -37,7 +37,7 @@ class ItemAdapter(private val list: List<Item>) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = list[position]
-        holder.mBind.itemName.text = position.toString()
+        holder.mBind.itemName.text = item.name
         if (item.isKey) {
             holder.mBind.root.setOnClickListener {
                 clickKey?.invoke(item)

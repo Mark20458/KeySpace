@@ -12,7 +12,7 @@ class App : Application() {
     lateinit var db: DB
 
     init {
-        stack.push(Item(name = "首页", id = -1))
+        stack.push(Item(name = "root", id = -1))
     }
 
     override fun onCreate() {

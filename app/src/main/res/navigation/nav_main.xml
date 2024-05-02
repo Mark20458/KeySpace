@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/createFragment"
-        android:name="cn.edu.bistu.ui.home.CreateFragment"
+        android:name="cn.edu.bistu.ui.home.CreateKeyFragment"
         android:label="CreateFragment"
         tools:layout="@layout/fragment_create" />
 </navigation>

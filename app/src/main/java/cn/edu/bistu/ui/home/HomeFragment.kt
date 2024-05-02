@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.edu.bistu.App
 import cn.edu.bistu.R
+import cn.edu.bistu.database.model.Item
 import cn.edu.bistu.databinding.FragmentHomeBinding
 import cn.edu.bistu.util.gone
 import cn.edu.bistu.util.visible
@@ -43,7 +44,7 @@ class HomeFragment : Fragment() {
         mBind.title.text = App.getInstance().stack.peek().name
 
         viewModel.list.observe(viewLifecycleOwner) {
-            if (it != null) {
+            if (!it.isNullOrEmpty()) {
                 mBind.empty.gone()
                 mBind.content.visible()
                 mBind.content.layoutManager = LinearLayoutManager(requireActivity())
@@ -53,7 +54,8 @@ class HomeFragment : Fragment() {
                 }
 
                 adapter.clickFolder = {
-                    // TODO 进入查看文件夹页面
+                    App.getInstance().stack.push(it)
+                    viewModel.updateList()
                 }
 
                 adapter.longClickItem = {
@@ -64,7 +66,12 @@ class HomeFragment : Fragment() {
                 mBind.empty.visible()
                 mBind.content.gone()
             }
+            update()
         }
+    }
+
+    private fun update() {
+        mBind.title.text = App.getInstance().stack.peek().name
     }
 
     private fun initListener() {
@@ -101,7 +108,16 @@ class HomeFragment : Fragment() {
                     }
 
                     R.id.folder -> {
-                        // TODO 弹出创建文件夹的弹窗
+                        CreateFolderDialog.getInstance()
+                            .setConfirmCallback {
+                                val item = Item(
+                                    name = it,
+                                    isKey = false,
+                                    parentId = App.getInstance().stack.peek().id
+                                )
+                                viewModel.save(item)
+                                viewModel.updateList()
+                            }.show(childFragmentManager, "CreateFolderDialog")
                     }
                 }
                 return@setOnMenuItemClickListener true

@@ -78,5 +78,13 @@ class SPUtil {
         fun saveString(key: String, value: String) {
             MMKV.defaultMMKV().encode(key, value)
         }
+
+        fun getInt(key: String, defaultValue: Int = 0): Int {
+            return MMKV.defaultMMKV().decodeInt(key, defaultValue)
+        }
+
+        fun saveInt(key: String, value: Int) {
+            MMKV.defaultMMKV().encode(key, value)
+        }
     }
 }
