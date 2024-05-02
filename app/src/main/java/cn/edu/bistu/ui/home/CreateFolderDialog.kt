@@ -49,7 +49,6 @@ class CreateFolderDialog : DialogFragment() {
         // 获取对话框窗口
         val dialogWindow = dialog?.window
 
-        // 设置对话框的宽度为屏幕宽度的一半
         dialogWindow?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT

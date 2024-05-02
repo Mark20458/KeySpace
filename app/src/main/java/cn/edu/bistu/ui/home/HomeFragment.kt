@@ -1,6 +1,11 @@
 package cn.edu.bistu.ui.home
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +19,7 @@ import cn.edu.bistu.App
 import cn.edu.bistu.R
 import cn.edu.bistu.database.model.Item
 import cn.edu.bistu.databinding.FragmentHomeBinding
+import cn.edu.bistu.ui.dialog.TipDialog
 import cn.edu.bistu.util.gone
 import cn.edu.bistu.util.visible
 import cn.edu.bistu.viewmodel.DBViewModel
@@ -58,8 +64,18 @@ class HomeFragment : Fragment() {
                     viewModel.updateList()
                 }
 
-                adapter.longClickItem = {
-                    // TODO 长按可以进行删除，复制等操作（下拉菜单）
+                adapter.longClickItem = { item, view ->
+                    view.setBackgroundColor(Color.parseColor("#64B5F6"))
+                    val popupMenu = PopupMenu(requireActivity(), view)
+                    popupMenu.setOnDismissListener {
+                        view.setBackgroundColor(Color.parseColor("#9EDDFF"))
+                    }
+                    popupMenu.gravity = Gravity.END
+                    if (item.isKey)
+                        setPopupMenuKey(popupMenu, item)
+                    else
+                        setPopupMenuFolder(popupMenu, item)
+                    popupMenu.show()
                 }
                 mBind.content.adapter = adapter
             } else {
@@ -70,6 +86,44 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setPopupMenuFolder(popupMenu: PopupMenu, item: Item) {
+        popupMenu.menuInflater.inflate(R.menu.long_click_folder_operation, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.delete -> {
+                    TipDialog.getInstance("您确定要删除${item.name}吗?").setConfirmCallback {
+                        viewModel.delete(item)
+                        viewModel.updateList()
+                    }.show(childFragmentManager, "delete")
+                }
+                // TODO 移动文件夹
+            }
+            return@setOnMenuItemClickListener true
+        }
+    }
+
+    private fun setPopupMenuKey(popupMenu: PopupMenu, item: Item) {
+        popupMenu.menuInflater.inflate(R.menu.long_click_key_operation, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.delete -> {
+                    TipDialog.getInstance("您确定要删除${item.name}吗?").setConfirmCallback {
+                        viewModel.delete(item)
+                        viewModel.updateList()
+                    }.show(childFragmentManager, "delete")
+                }
+
+                R.id.copy -> {
+                    val manager =
+                        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clip = ClipData.newPlainText("password", item.password)
+                    manager.setPrimaryClip(clip)
+                }
+            }
+            return@setOnMenuItemClickListener true
+        }
+    }
+
     private fun update() {
         mBind.title.text = App.getInstance().stack.peek().name
     }
@@ -77,7 +131,6 @@ class HomeFragment : Fragment() {
     private fun initListener() {
         mBind.content.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             private var flag: Boolean = true
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if ((dy > 0 && flag) || (dy < 0 && !flag)) {

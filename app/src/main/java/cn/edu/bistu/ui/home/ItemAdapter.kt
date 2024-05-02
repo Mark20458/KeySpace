@@ -1,6 +1,7 @@
 package cn.edu.bistu.ui.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -25,7 +26,7 @@ class ItemAdapter(private val list: List<Item>) :
     /**
      * 长按事件
      */
-    var longClickItem: ((item: Item) -> Unit)? = null
+    var longClickItem: ((item: Item, view: View) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = ItemPasswordBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(view)
@@ -50,7 +51,7 @@ class ItemAdapter(private val list: List<Item>) :
             holder.mBind.type.setImageResource(R.drawable.folder)
         }
         holder.mBind.root.setOnLongClickListener {
-            longClickItem?.invoke(item)
+            longClickItem?.invoke(item, it)
             return@setOnLongClickListener true
         }
     }
