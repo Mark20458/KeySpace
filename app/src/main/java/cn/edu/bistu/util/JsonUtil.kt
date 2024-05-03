@@ -1,5 +1,6 @@
 package cn.edu.bistu.util
 
+import cn.edu.bistu.database.model.Item
 import com.google.gson.Gson
 
 class JsonUtil {
@@ -19,5 +20,13 @@ class JsonUtil {
                 }
                 return field
             }
+
+        fun toString(item: Item): String {
+            return gson!!.toJson(item)
+        }
+
+        fun toItem(json: String): Item {
+            return gson!!.fromJson(json, Item::class.java)
+        }
     }
 }

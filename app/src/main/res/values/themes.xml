@@ -14,5 +14,6 @@
         <!-- Emphasis color. -->
         <item name="colorAccent">#4CAF50</item>
         <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/schibsted_grotesk_variablefont_wght</item>
     </style>
 </resources>

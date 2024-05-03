@@ -1,5 +1,6 @@
 package cn.edu.bistu.util
 
+import android.text.Editable
 import android.util.Base64
 import android.util.TypedValue
 import android.view.View
@@ -28,6 +29,10 @@ fun Int.toDp(): Int {
         this.toFloat(),
         App.getInstance().resources.displayMetrics
     ).toInt()
+}
+
+fun String.toEditable(): Editable {
+    return Editable.Factory.getInstance().newEditable(this)
 }
 
 fun generatePassword(

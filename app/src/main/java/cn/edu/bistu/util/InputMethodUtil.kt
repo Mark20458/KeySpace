@@ -9,8 +9,7 @@ class InputMethodUtil {
         fun show(context: Context, view: View) {
             val manager =
                 context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            manager.hideSoftInputFromWindow(view.windowToken, 0)
-            manager.showSoftInput(view, 0)
+            manager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
         }
 
         fun hide(context: Context, view: View) {

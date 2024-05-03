@@ -20,6 +20,8 @@ import cn.edu.bistu.R
 import cn.edu.bistu.database.model.Item
 import cn.edu.bistu.databinding.FragmentHomeBinding
 import cn.edu.bistu.ui.dialog.TipDialog
+import cn.edu.bistu.util.JsonUtil
+import cn.edu.bistu.util.ToastUtil
 import cn.edu.bistu.util.gone
 import cn.edu.bistu.util.visible
 import cn.edu.bistu.viewmodel.DBViewModel
@@ -38,8 +40,6 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[DBViewModel::class.java]
         viewModel.updateList()
 
-
-
         initView()
         initListener()
 
@@ -55,15 +55,21 @@ class HomeFragment : Fragment() {
                 mBind.content.visible()
                 mBind.content.layoutManager = LinearLayoutManager(requireActivity())
                 val adapter = ItemAdapter(it)
+                // 点击密钥跳转到密钥详情
                 adapter.clickKey = {
-                    // TODO 进入查看密钥页面
+                    val bundle = Bundle()
+                    bundle.putString("item", JsonUtil.toString(it))
+                    Navigation.findNavController(requireActivity(), R.id.container)
+                        .navigate(R.id.action_mainFragment_to_showKeyDetailFragment, bundle)
                 }
 
-                adapter.clickFolder = {
-                    App.getInstance().stack.push(it)
+                // 点击文件夹,跳转文件夹目录下
+                adapter.clickFolder = { item ->
+                    App.getInstance().stack.push(item)
                     viewModel.updateList()
                 }
 
+                // 长按元素,弹出菜单可以进行删除
                 adapter.longClickItem = { item, view ->
                     view.setBackgroundColor(Color.parseColor("#64B5F6"))
                     val popupMenu = PopupMenu(requireActivity(), view)
@@ -76,6 +82,13 @@ class HomeFragment : Fragment() {
                     else
                         setPopupMenuFolder(popupMenu, item)
                     popupMenu.show()
+                }
+                adapter.setKeyEndIconClickCallback { item ->
+                    copy(item)
+                }
+                adapter.setFolderEndIconClickCallback { item ->
+                    App.getInstance().stack.push(item)
+                    viewModel.updateList()
                 }
                 mBind.content.adapter = adapter
             } else {
@@ -90,11 +103,20 @@ class HomeFragment : Fragment() {
         popupMenu.menuInflater.inflate(R.menu.long_click_folder_operation, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.delete -> {
-                    TipDialog.getInstance("您确定要删除${item.name}吗?").setConfirmCallback {
-                        viewModel.delete(item)
-                        viewModel.updateList()
-                    }.show(childFragmentManager, "delete")
+                R.id.onlyDelete -> {
+                    TipDialog.getInstance("您确定要删除${item.name}吗?\n该目录下的子项不会被删除")
+                        .setConfirmCallback {
+                            viewModel.deleteOnlyFolder(item)
+                            ToastUtil.show("删除成功")
+                        }.show(childFragmentManager, "delete")
+                }
+
+                R.id.deleteAll -> {
+                    TipDialog.getInstance("您确定要删除${item.name}文件夹及其子项吗?")
+                        .setConfirmCallback {
+                            viewModel.deleteFolderAndChildren(item)
+                            ToastUtil.show("删除成功")
+                        }.show(childFragmentManager, "delete")
                 }
                 // TODO 移动文件夹
             }
@@ -109,19 +131,28 @@ class HomeFragment : Fragment() {
                 R.id.delete -> {
                     TipDialog.getInstance("您确定要删除${item.name}吗?").setConfirmCallback {
                         viewModel.delete(item)
+                        ToastUtil.show("删除成功")
                         viewModel.updateList()
                     }.show(childFragmentManager, "delete")
                 }
 
                 R.id.copy -> {
-                    val manager =
-                        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    val clip = ClipData.newPlainText("password", item.password)
-                    manager.setPrimaryClip(clip)
+                    copy(item)
                 }
             }
             return@setOnMenuItemClickListener true
         }
+    }
+
+    /**
+     * 复制内容到粘贴板上
+     */
+    private fun copy(item: Item) {
+        val manager =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("password", item.password)
+        manager.setPrimaryClip(clip)
+        ToastUtil.show("复制成功")
     }
 
     private fun update() {

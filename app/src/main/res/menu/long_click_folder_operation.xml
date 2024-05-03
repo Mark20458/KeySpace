@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/delete"
-        android:title="删除" />
+        android:id="@+id/onlyDelete"
+        android:title="仅删除该文件夹" />
 
-<!--    <item-->
-<!--        android:id="@+id/move"-->
-<!--        android:title="移动" />-->
+    <item
+        android:id="@+id/deleteAll"
+        android:title="删除该文件夹及其子内容" />
+    <!--    <item-->
+    <!--        android:id="@+id/move"-->
+    <!--        android:title="移动" />-->
 </menu>

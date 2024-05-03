@@ -32,8 +32,8 @@ class TipDialog : DialogFragment() {
             dismiss()
         }
         mBind.cancle.setOnClickListener {
-            cancelCallback?.invoke()
             dismiss()
+            cancelCallback?.invoke()
         }
         mBind.title.text = title
         return mBind.root

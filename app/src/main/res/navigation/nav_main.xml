@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_mainFragment_to_createFragment"
             app:destination="@id/createFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_showKeyDetailFragment"
+            app:destination="@id/showKeyDetailFragment" />
     </fragment>
 
     <fragment
@@ -58,4 +61,9 @@
         android:name="cn.edu.bistu.ui.home.CreateKeyFragment"
         android:label="CreateFragment"
         tools:layout="@layout/fragment_create" />
+    <fragment
+        android:id="@+id/showKeyDetailFragment"
+        android:name="cn.edu.bistu.ui.home.ShowKeyDetailFragment"
+        android:label="ShowKeyDetailFragment"
+        tools:layout="@layout/fragment_show_key_detail" />
 </navigation>
