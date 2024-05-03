@@ -15,6 +15,11 @@ class DBViewModel : ViewModel() {
     private var _list = MutableLiveData<List<Item>>()
     val list: LiveData<List<Item>?> get() = _list
 
+    private var _searchList = MutableLiveData<List<Item>>()
+    val searchList: LiveData<List<Item>> get() = _searchList
+
+    var oldKeyword: String = ""
+
     fun updateList() {
         viewModelScope.launch {
             _list.value =
@@ -23,6 +28,15 @@ class DBViewModel : ViewModel() {
                     .first()
         }
     }
+
+    fun updateSearchList(keyword: String) {
+        oldKeyword = keyword
+        viewModelScope.launch {
+            _searchList.value =
+                App.getInstance().db.getItemDao().searchByKeyword(keyword).first()
+        }
+    }
+
 
     fun save(item: Item) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -64,6 +78,8 @@ class DBViewModel : ViewModel() {
             }
             dao.deleteItem(deleteList)
             updateList()
+            if (oldKeyword.isNotEmpty())
+                updateSearchList(oldKeyword)
         }
     }
 
@@ -82,6 +98,8 @@ class DBViewModel : ViewModel() {
             dao.updateItem(newList)
             delete(item)
             updateList()
+            if (oldKeyword.isNotEmpty())
+                updateSearchList(oldKeyword)
         }
     }
 }

@@ -14,6 +14,16 @@ interface ItemDao {
     @Query("select * from key_table where parentId = :parentId order by max(cTime,coalesce(mTime,0))")
     fun getItemByParentId(parentId: Int): Flow<List<Item>>
 
+    @Query(
+        "SELECT * FROM key_table " +
+                "WHERE name LIKE '%' || :keyword || '%' " +
+                "OR username LIKE '%' || :keyword || '%' " +
+                "OR websiteName LIKE '%' || :keyword || '%' " +
+                "OR note LIKE '%' || :keyword || '%' " +
+                "OR url LIKE '%' || :keyword || '%' "
+    )
+    fun searchByKeyword(keyword: String): Flow<List<Item>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertItem(item: List<Item>)
 

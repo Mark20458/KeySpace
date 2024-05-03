@@ -217,4 +217,9 @@ class HomeFragment : Fragment() {
             popupMenu.show()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateList()
+    }
 }
