@@ -103,6 +103,14 @@ class HomeFragment : Fragment() {
         popupMenu.menuInflater.inflate(R.menu.long_click_folder_operation, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.rename -> {
+                    RenameDialog.getInstance(item.name.toString())
+                        .setConfirmCallback {
+                            viewModel.update(item.copy(name = it))
+                            viewModel.updateList()
+                        }.show(childFragmentManager, "CreateFolderDialog")
+                }
+
                 R.id.onlyDelete -> {
                     TipDialog.getInstance("您确定要删除${item.name}吗?\n该目录下的子项不会被删除")
                         .setConfirmCallback {

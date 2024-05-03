@@ -5,24 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import cn.edu.bistu.App
-import cn.edu.bistu.databinding.DialogCreateFolderBinding
+import cn.edu.bistu.databinding.DialogRenameBinding
 import cn.edu.bistu.util.InputMethodUtil
+import cn.edu.bistu.util.toEditable
 
 /**
  * 创建文件夹的弹窗
  */
-class CreateFolderDialog : DialogFragment() {
-    private lateinit var mBind: DialogCreateFolderBinding
+class RenameDialog : DialogFragment() {
+    private lateinit var mBind: DialogRenameBinding
+    private var name: String = ""
     private var confirmCallback: ((name: String) -> Unit)? = null
 
     companion object {
-        fun getInstance(): CreateFolderDialog {
-            return CreateFolderDialog()
+        fun getInstance(name: String): RenameDialog {
+            val dialog = RenameDialog()
+            dialog.name = name
+            return dialog
         }
     }
 
-    fun setConfirmCallback(callback: (name: String) -> Unit): CreateFolderDialog {
+    fun setConfirmCallback(callback: (name: String) -> Unit): RenameDialog {
         confirmCallback = callback
         return this
     }
@@ -32,8 +35,8 @@ class CreateFolderDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBind = DialogCreateFolderBinding.inflate(inflater, container, false)
-        mBind.title.text = App.getInstance().stack.peek().name
+        mBind = DialogRenameBinding.inflate(inflater, container, false)
+        mBind.title.text = name.toEditable()
         mBind.confirm.setOnClickListener {
             if (mBind.folder.text.toString().isBlank()) {
                 mBind.folderLayout.error = "文件夹名称不能为空"
