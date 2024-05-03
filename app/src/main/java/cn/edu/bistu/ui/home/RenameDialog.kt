@@ -48,7 +48,7 @@ class RenameDialog : DialogFragment() {
         mBind.folder.requestFocus()
         mBind.folder.postDelayed({
             InputMethodUtil.show(requireContext(), mBind.folder)
-        }, 50)
+        }, 100)
         return mBind.root
     }
 
