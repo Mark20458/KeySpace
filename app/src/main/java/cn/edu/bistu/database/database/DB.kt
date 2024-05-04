@@ -8,7 +8,7 @@ import cn.edu.bistu.database.dao.ItemDao
 import cn.edu.bistu.database.model.Item
 
 @Database(entities = [Item::class], version = 1, exportSchema = false)
-public abstract class DB : RoomDatabase() {
+abstract class DB : RoomDatabase() {
     abstract fun getItemDao(): ItemDao
 
     companion object {

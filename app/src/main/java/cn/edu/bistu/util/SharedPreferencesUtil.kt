@@ -10,6 +10,11 @@ class PreferencesKey {
         const val LOGIN_STATE = "login_state"
 
         /**
+         * 云端账户
+         */
+        const val ACCOUNT = "account"
+
+        /**
          * 登录之后会获取一个token，用于和云端进行同步备份
          */
         const val TOKEN = "token"

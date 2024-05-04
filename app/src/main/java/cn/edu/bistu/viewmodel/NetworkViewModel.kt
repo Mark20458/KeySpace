@@ -28,6 +28,7 @@ class NetworkViewModel : ViewModel() {
                     ToastUtil.show(jsonObject.getString("msg"))
                     if (jsonObject.getInt("code") != 101) return@launch
                     callback.invoke()
+                    SPUtil.saveString(PreferencesKey.ACCOUNT, e_mail)
                     SPUtil.saveString(PreferencesKey.TOKEN, jsonObject.getString("data"))
                     SPUtil.saveString(PreferencesKey.MASTER_PASSWORD, masterPassword)
                     SPUtil.saveBoolean(PreferencesKey.LOGIN_STATE, true)

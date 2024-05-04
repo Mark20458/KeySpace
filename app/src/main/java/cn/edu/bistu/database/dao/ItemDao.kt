@@ -14,6 +14,9 @@ interface ItemDao {
     @Query("select * from key_table where parentId = :parentId order by max(cTime,coalesce(mTime,0))")
     fun getItemByParentId(parentId: Int): Flow<List<Item>>
 
+    @Query("select * from key_table")
+    fun getAll(): Flow<List<Item>>
+
     @Query(
         "SELECT * FROM key_table " +
                 "WHERE name LIKE '%' || :keyword || '%' " +
@@ -41,4 +44,8 @@ interface ItemDao {
 
     @Delete
     fun deleteItem(item: List<Item>)
+
+
+    @Query("delete from key_table")
+    fun deleteAll()
 }
