@@ -11,12 +11,15 @@ class Backup {
         /**
          * 备份文件在该uri下
          */
-        suspend fun backup(context: Context, folder: DocumentFile, fileName: String) {
+        suspend fun backup(context: Context, folder: DocumentFile, fileName: String): Boolean {
             folder.createFile("application/zip", fileName)?.run {
                 val list = App.getInstance().db.getItemDao().getAll().first()
 
-                val password = SPUtil.getString(PreferencesKey.MASTER_PASSWORD, "123456")!!
-                val salt = SPUtil.getString(PreferencesKey.SALT, "123456")!!
+                val password = SPUtil.getString(PreferencesKey.MASTER_PASSWORD)
+                val salt = SPUtil.getString(PreferencesKey.SALT)
+                if (password.isNullOrBlank() || salt.isNullOrBlank()) {
+                    return false
+                }
                 val json = CryptManager.encrypt(JsonUtil.toString(list), password, salt)
                 val bytes = Compress.compressString(json)
 
@@ -27,6 +30,7 @@ class Backup {
                     close()
                 }
             }
+            return true
         }
 
         /**
@@ -47,6 +51,12 @@ class Backup {
                 dao.insertItem(list)
                 close()
             }
+        }
+
+        suspend fun import(str: String) {
+            val dao = App.getInstance().db.getItemDao()
+            dao.deleteAll()
+            dao.insertItem(JsonUtil.toListItem(str))
         }
     }
 }

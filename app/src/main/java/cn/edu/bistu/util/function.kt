@@ -1,18 +1,18 @@
 package cn.edu.bistu.util
 
 import android.text.Editable
-import android.util.Base64
 import android.util.TypedValue
 import android.view.View
 import cn.edu.bistu.App
 import java.security.MessageDigest
+import java.util.Base64
 
 /**
  * 在这写一些扩展函数
  */
 fun hash(message: String): String {
     val bytes = MessageDigest.getInstance("SHA-256").digest(message.toByteArray())
-    return Base64.encodeToString(bytes, Base64.NO_WRAP)
+    return Base64.getEncoder().encodeToString(bytes)
 }
 
 fun View.visible() {
@@ -56,4 +56,12 @@ fun generatePassword(
     return (1..length)
         .map { allChars.random() }
         .joinToString("")
+}
+
+fun ByteArray.toBase64(): String {
+    return Base64.getEncoder().encodeToString(this)
+}
+
+fun String.toBase64ByteArray(): ByteArray {
+    return Base64.getDecoder().decode(this)
 }

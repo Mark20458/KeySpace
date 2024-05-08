@@ -58,3 +58,18 @@ class CryptManager {
         }
     }
 }
+//
+//fun main() {
+//    val msg = "Hello world"
+//    val password = "123456"
+//    val salt = "123456"
+//    val encrypt = CryptManager.encrypt(msg, password, salt)
+//    val compressString = Compress.compressString(encrypt).toBase64()
+//    val decompressString = Compress.decompressString(compressString.toBase64ByteArray())
+//    val decrypt = CryptManager.decrypt(decompressString, password, salt)
+//    println(compressString)
+//    println(decompressString)
+//    println("---------------")
+//    println(encrypt)
+//    println(decrypt)
+//}
