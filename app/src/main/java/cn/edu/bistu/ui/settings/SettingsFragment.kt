@@ -179,6 +179,16 @@ class SettingsFragment : Fragment() {
                     }
                 }.show(childFragmentManager, "logoutLayout")
         }
+        mBind.feedbackLayout.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, "关于使用KeySpace的建议")
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("gongzheng0815@qq.com"))
+            val chooser =
+                Intent.createChooser(intent, "问题反馈")
+            requireContext().startActivity(chooser)
+        }
     }
 
     /**
