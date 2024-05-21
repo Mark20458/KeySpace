@@ -7,6 +7,8 @@ import cn.edu.bistu.network.Api
 import cn.edu.bistu.util.PreferencesKey
 import cn.edu.bistu.util.SPUtil
 import cn.edu.bistu.util.ToastUtil
+import cn.edu.bistu.util.generatePassword
+import cn.edu.bistu.util.hash
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -48,6 +50,30 @@ class NetworkViewModel : ViewModel() {
         masterPassword: String,
         callback: (() -> Unit)? = null
     ) {
+        val login_salt = generatePassword(18)
+        val master_salt = generatePassword(18)
+        val map = mapOf(
+            "e_mail" to e_mail,
+            "hash_password" to hash(password + login_salt),
+            "login_salt" to login_salt,
+            "master_password" to hash(masterPassword + master_salt),
+            "crypt_salt" to master_salt
+        )
+        Api.post("register", map, object : Api.Handler {
+            override fun success(jsonObject: JSONObject) {
+                viewModelScope.launch(Dispatchers.Main) {
+                    ToastUtil.show(jsonObject.getString("msg"))
+                    if (jsonObject.getInt("code") != 101) return@launch
+                    callback?.invoke()
+                    val token = jsonObject.getString("data")
+                    SPUtil.saveString(PreferencesKey.TOKEN, token)
+                    SPUtil.saveString(PreferencesKey.SALT, master_salt)
+                    SPUtil.saveString(PreferencesKey.ACCOUNT, e_mail)
+                    SPUtil.saveString(PreferencesKey.MASTER_PASSWORD, masterPassword)
+                    SPUtil.saveBoolean(PreferencesKey.LOGIN_STATE, true)
+                }
+            }
+        })
     }
 
     /**
