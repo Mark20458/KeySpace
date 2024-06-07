@@ -1,5 +1,3 @@
-
-
 ### 密码管理器
 
 - [ ] 密钥管理（增删改查）
@@ -10,7 +8,8 @@
 - [ ] 自动填充服务
 - [ ] 搜索功能
 
-注：后端需要自己创建
+注：需要使用[CloudStore](https://github.com/Mark20458/CloudStore)
+可以通过ngrok工具，将CloudStore项目代理到公网上，然后设置KeySpace下Api类BASE_URL变量为自己的基地址
 
 具体效果：
 
