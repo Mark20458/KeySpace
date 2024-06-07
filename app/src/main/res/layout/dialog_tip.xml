@@ -3,45 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_rounded_corner">
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        android:gravity="center_vertical"
-        android:minHeight="60dp"
+        android:gravity="center"
+        android:minHeight="80dp"
         android:textColor="@color/black"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="您确定要删除...吗?" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_5dp"
-        android:layout_marginTop="10dp"
-        android:text="确定"
-        app:cornerRadius="@dimen/cornerRadius_5dp"
-        app:layout_constraintEnd_toEndOf="parent"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/cancle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_5dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#CCCCCC"
-        android:text="取消"
-        android:textColor="@color/black"
-        app:cornerRadius="@dimen/cornerRadius_5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@color/negative"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/confirm"
+            android:textColor="@color/positive"
+            android:textSize="15sp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

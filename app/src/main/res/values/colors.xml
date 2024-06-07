@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="deepBlue">#1976D2</color>
+    <color name="positive">#5AB2FF</color>
+    <color name="negative">#686D76</color>
 </resources>
