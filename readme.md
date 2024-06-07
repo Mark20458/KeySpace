@@ -1,3 +1,5 @@
+
+
 ### 密码管理器
 
 - [ ] 密钥管理（增删改查）
@@ -9,28 +11,28 @@
 - [ ] 搜索功能
 
 注：后端需要自己创建
- 
-#### 1. 数据库设计
 
-##### 手机端Key
+具体效果：
 
-| 字段名          | 类型        | 意义                                   |
-| :-------------- | :---------- | -------------------------------------- |
-| id              | Long        | 主键                                   |
-| **name**        | **String?** | **密钥或文件夹名称**                   |
-| **username**    | **String?** | **用户名/手机号/邮箱**                 |
-| **url**         | **String?** | **网址（密钥使用的地方）**             |
-| **websiteName** | **String?** | **网站名称**                           |
-| password        | String?     | 密码，如果是文件夹则可以为空           |
-| **note**        | **String?** | **附注**                               |
-| **cTime**       | **Long**    | **创建时间**                           |
-| **mTime**       | **Long?**   | **修改时间**                           |
-| uuid            | String      | 唯一id，用于判断云端和本地密码是否相同 |
-| parentId        | Int         | 父结点的id，-1表示在根结点下面         |
-| isKey           | Boolean     | 是否为密码                             |
+![image-20240607171155793](C:\Users\HP\Desktop\KeySpace\images\image-20240607171155793.png)
 
-> 这里采用的是存储父结点的id表示文件夹，parentId = -1表示该密钥（或文件夹）在根节点下，可以使用这个实现文件夹功能
->
-> 加粗字段表示搜索时检索哪些字段
+![image-20240607171231111](C:\Users\HP\Desktop\KeySpace\images\image-20240607171231111.png)
 
-##### SharedPreferencesUtil 
+![image-20240607171241324](C:\Users\HP\Desktop\KeySpace\images\image-20240607171241324.png)
+
+![image-20240607171250827](C:\Users\HP\Desktop\KeySpace\images\image-20240607171250827.png)
+
+![image-20240607171257939](C:\Users\HP\Desktop\KeySpace\images\image-20240607171257939.png)
+
+![image-20240607171309068](C:\Users\HP\Desktop\KeySpace\images\image-20240607171309068.png)
+
+![image-20240607171317929](C:\Users\HP\Desktop\KeySpace\images\image-20240607171317929.png)
+
+![image-20240607171325807](C:\Users\HP\Desktop\KeySpace\images\image-20240607171325807.png)
+
+![image-20240607171334003](C:\Users\HP\Desktop\KeySpace\images\image-20240607171334003.png)
+
+![image-20240607171341192](C:\Users\HP\Desktop\KeySpace\images\image-20240607171341192.png)
+
+![image-20240607171347860](C:\Users\HP\Desktop\KeySpace\images\image-20240607171347860.png)
+
