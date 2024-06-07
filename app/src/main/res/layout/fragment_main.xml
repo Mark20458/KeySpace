@@ -8,7 +8,7 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#EEFFFF"
+        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@id/tabLayout"
         app:layout_constraintTop_toTopOf="parent" />
 
