@@ -14,11 +14,11 @@
 
 具体效果：
 
-![image-20240607171155793](C:\Users\HP\Desktop\KeySpace\images\image-20240607171155793.png)
+![image-20240607171155793](images/image-20240607171155793.png)
 
-![image-20240607171231111](C:\Users\HP\Desktop\KeySpace\images\image-20240607171231111.png)
+![image-20240607171231111](images/image-20240607171231111.png)
 
-![image-20240607171241324](C:\Users\HP\Desktop\KeySpace\images\image-20240607171241324.png)
+![image-20240607171241324](images/image-20240607171241324.png)
 
 ![image-20240607171250827](C:\Users\HP\Desktop\KeySpace\images\image-20240607171250827.png)
 
