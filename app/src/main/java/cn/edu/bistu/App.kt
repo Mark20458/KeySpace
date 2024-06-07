@@ -7,7 +7,6 @@ import com.tencent.mmkv.MMKV
 import java.util.Stack
 
 class App : Application() {
-    //    var stack: Stack<Int> = Stack<Int>()
     var stack: Stack<Item> = Stack<Item>()
     lateinit var db: DB
 

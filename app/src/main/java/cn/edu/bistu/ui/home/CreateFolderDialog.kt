@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import cn.edu.bistu.App
 import cn.edu.bistu.databinding.DialogCreateFolderBinding
@@ -49,14 +50,14 @@ class CreateFolderDialog : DialogFragment() {
         return mBind.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // 获取对话框窗口
-        val dialogWindow = dialog?.window
-
-        dialogWindow?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+    override fun onResume() {
+        super.onResume()
+        dialog?.window?.run {
+            setBackgroundDrawableResource(android.R.color.transparent)
+            val params = attributes
+            params.width = (resources.displayMetrics.widthPixels * 0.9).toInt()
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT
+            attributes = params
+        }
     }
 }
