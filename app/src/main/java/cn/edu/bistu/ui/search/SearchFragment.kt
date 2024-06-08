@@ -48,11 +48,15 @@ class SearchFragment : Fragment() {
         return mBind.root
     }
 
-    private fun initView() {
+    private fun reset() {
         mBind.searchInput.text = "".toEditable()
         mBind.iconClear.gone()
         mBind.searchContent.gone()
         mBind.empty.visible()
+    }
+
+    private fun initView() {
+        reset()
         viewModel.searchList.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 mBind.searchContent.gone()
@@ -114,8 +118,6 @@ class SearchFragment : Fragment() {
                 if (s == null) return
                 if (s.toString().isNotEmpty()) {
                     mBind.iconClear.visible()
-                    mBind.searchContent.visible()
-                    mBind.empty.gone()
                     viewModel.updateSearchList(s.toString())
                 } else {
                     mBind.iconClear.gone()
@@ -126,10 +128,7 @@ class SearchFragment : Fragment() {
         })
 
         mBind.iconClear.setOnClickListener {
-            mBind.iconClear.gone()
-            mBind.searchInput.text = "".toEditable()
-            mBind.empty.visible()
-            mBind.searchContent.gone()
+            reset()
         }
     }
 
