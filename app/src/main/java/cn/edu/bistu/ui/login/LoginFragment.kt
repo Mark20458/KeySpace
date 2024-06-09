@@ -8,19 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import cn.edu.bistu.R
 import cn.edu.bistu.databinding.FragmentLoginBinding
 import cn.edu.bistu.util.InputMethodUtil
 import cn.edu.bistu.util.ToastUtil
+import cn.edu.bistu.util.gone
 import cn.edu.bistu.viewmodel.NetworkViewModel
 
 
 class LoginFragment : Fragment(), View.OnClickListener {
-    companion object {
-        const val TAG = "login"
-        fun newInstance() = LoginFragment()
-    }
 
     private val viewModel: NetworkViewModel by viewModels()
     private lateinit var mBind: FragmentLoginBinding
@@ -29,6 +27,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private var check_password: Boolean = true
     private var check_confirm_password: Boolean = true
     private var check_master_password: Boolean = true
+    private lateinit var loginViewModel: LoginViewModel
 
     // 输入格式是否正确
     private val check: Boolean
@@ -47,6 +46,23 @@ class LoginFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         mBind = FragmentLoginBinding.inflate(inflater)
+        loginViewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
+        loginViewModel.isOver.observe(viewLifecycleOwner) { isOver ->
+            if (isOver) {
+                if (loginViewModel.countDownTime != LoginViewModel.TOTAL_TIME) {
+                    mBind.sendVerifyCode.text = "重新发送"
+                } else {
+                    mBind.sendVerifyCode.text = "获取验证码"
+                }
+                mBind.sendVerifyCode.setBackgroundResource(R.drawable.rounded_corner_right_positive)
+            } else {
+                mBind.sendVerifyCode.text = "重新发送(${loginViewModel.countDownTime / 1000})"
+                mBind.sendVerifyCode.setBackgroundResource(R.drawable.rounded_corner_right_negative)
+            }
+        }
+        loginViewModel.onTickTask = {
+            mBind.sendVerifyCode.text = "重新发送(${it / 1000})"
+        }
         initView()
         initListener()
         initCheck()
@@ -57,7 +73,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
         mBind.run {
             if (login) {
                 tvTitle.text = "登录"
-                confirmPasswordLayout.visibility = View.GONE
+                verifyCodeLayout.gone()
                 check_email = false
                 check_password = false
                 check_confirm_password = true
@@ -76,7 +92,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
         mBind.ivBack.setOnClickListener(this)
         mBind.confirm.setOnClickListener(this)
 
-
+        mBind.sendVerifyCode.setOnClickListener {
+            loginViewModel.sendVerifyCode()
+        }
     }
 
     private fun initCheck() {
@@ -102,7 +120,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 }
             }
         })
-        mBind.password.addTextChangedListener(object : TextWatcher {
+        mBind.loginPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 return
             }
@@ -115,31 +133,10 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 val password = s.toString()
                 if (password.trim().length < 6) {
                     check_password = false
-                    mBind.passwordLayout.error = "密码长度需要不少于6位"
+                    mBind.loginPasswordLayout.error = "密码长度需要不少于6位"
                 } else {
                     check_password = true
-                    mBind.passwordLayout.error = null
-                }
-            }
-        })
-
-        mBind.confirmPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                return
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                return
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                val password = s.toString()
-                if (password.trim().length < 6) {
-                    check_confirm_password = false
-                    mBind.confirmPasswordLayout.error = "密码和确认密码不相同"
-                } else {
-                    check_confirm_password = true
-                    mBind.confirmPasswordLayout.error = null
+                    mBind.loginPasswordLayout.error = null
                 }
             }
         })
@@ -181,7 +178,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     return
                 } else {
                     val e_mail = mBind.email.text.toString()
-                    val password = mBind.password.text.toString()
+                    val password = mBind.loginPassword.text.toString()
                     val master_password = mBind.masterPassword.text.toString()
                     if (login) {
                         // 登录

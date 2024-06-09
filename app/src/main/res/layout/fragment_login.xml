@@ -57,9 +57,9 @@
             tools:text="gongzheng0815@qq.com" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--密码-->
+    <!--登录密码-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_layout"
+        android:id="@+id/login_password_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_5dp"
@@ -71,33 +71,47 @@
         app:layout_constraintTop_toBottomOf="@id/email_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password"
+            android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             tools:text="16692865351" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--确认密码-->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/confirm_password_layout"
+    <!--验证码-->
+    <LinearLayout
+        android:id="@+id/verify_code_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="@dimen/margin_5dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="@dimen/margin_5dp"
-        android:hint="@string/confirm_password"
-        app:endIconMode="password_toggle"
-        app:errorTextColor="@color/red"
-        app:layout_constraintTop_toBottomOf="@id/password_layout">
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/rounded_corner_left"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/login_password_layout">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/confirm_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            tools:text="16692865351" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/verify_code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/send_verify_code"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_corner_right_positive"
+            android:gravity="center"
+            android:text="发送验证码"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <!--主密码-->
     <com.google.android.material.textfield.TextInputLayout
@@ -110,7 +124,7 @@
         android:hint="@string/master_password"
         app:endIconMode="password_toggle"
         app:errorTextColor="@color/red"
-        app:layout_constraintTop_toBottomOf="@id/confirm_password_layout">
+        app:layout_constraintTop_toBottomOf="@id/verify_code_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/master_password"
