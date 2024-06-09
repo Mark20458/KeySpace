@@ -46,6 +46,14 @@ class LoginFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         mBind = FragmentLoginBinding.inflate(inflater)
+        initViewModel()
+        initView()
+        initListener()
+        initCheck()
+        return mBind.root
+    }
+
+    private fun initViewModel() {
         loginViewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
         loginViewModel.isOver.observe(viewLifecycleOwner) { isOver ->
             if (isOver) {
@@ -63,10 +71,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
         loginViewModel.onTickTask = {
             mBind.sendVerifyCode.text = "重新发送(${it / 1000})"
         }
-        initView()
-        initListener()
-        initCheck()
-        return mBind.root
     }
 
     private fun initView() {
