@@ -1,11 +1,10 @@
 package cn.edu.bistu.ui.login
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -102,69 +101,39 @@ class LoginFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initCheck() {
-        mBind.email.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                return
+        mBind.email.addTextChangedListener {
+            val e_mail = it.toString()
+            val emailRegex =
+                Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
+            if (e_mail.isEmpty() || !emailRegex.matches(e_mail)) {
+                check_email = false
+                mBind.emailLayout.error = "邮箱格式不正确"
+            } else {
+                check_email = true
+                mBind.emailLayout.error = null
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                return
+        }
+        mBind.loginPassword.addTextChangedListener {
+            val password = it.toString()
+            if (password.trim().length < 6) {
+                check_password = false
+                mBind.loginPasswordLayout.error = "密码长度需要不少于6位"
+            } else {
+                check_password = true
+                mBind.loginPasswordLayout.error = null
             }
-
-            override fun afterTextChanged(s: Editable?) {
-                val e_mail = s.toString()
-                val emailRegex =
-                    Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
-                if (e_mail.isEmpty() || !emailRegex.matches(e_mail)) {
-                    check_email = false
-                    mBind.emailLayout.error = "邮箱格式不正确"
-                } else {
-                    check_email = true
-                    mBind.emailLayout.error = null
-                }
+        }
+        mBind.masterPassword.addTextChangedListener {
+            val password = it.toString()
+            if (password.trim().length < 6) {
+                check_master_password = false
+                mBind.masterPasswordLayout.error = "主密码长度需要不少于6位"
+            } else {
+                check_master_password = true
+                mBind.masterPasswordLayout.error = null
             }
-        })
-        mBind.loginPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                return
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                return
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                val password = s.toString()
-                if (password.trim().length < 6) {
-                    check_password = false
-                    mBind.loginPasswordLayout.error = "密码长度需要不少于6位"
-                } else {
-                    check_password = true
-                    mBind.loginPasswordLayout.error = null
-                }
-            }
-        })
-
-        mBind.masterPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                return
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                return
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                val password = s.toString()
-                if (password.trim().length < 6) {
-                    check_master_password = false
-                    mBind.masterPasswordLayout.error = "主密码长度需要不少于6位"
-                } else {
-                    check_master_password = true
-                    mBind.masterPasswordLayout.error = null
-                }
-            }
-        })
+        }
     }
 
 
