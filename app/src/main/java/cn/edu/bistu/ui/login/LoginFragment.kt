@@ -24,14 +24,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private var login: Boolean = false
     private var check_email: Boolean = true
     private var check_password: Boolean = true
-    private var check_confirm_password: Boolean = true
     private var check_master_password: Boolean = true
     private lateinit var loginViewModel: LoginViewModel
 
     // 输入格式是否正确
     private val check: Boolean
         get() {
-            return check_email && check_password && check_confirm_password && check_master_password
+            return check_email && check_password && check_master_password
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,13 +78,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 verifyCodeLayout.gone()
                 check_email = false
                 check_password = false
-                check_confirm_password = true
                 check_master_password = false
             } else {
                 tvTitle.text = "注册"
                 check_email = false
                 check_password = false
-                check_confirm_password = false
                 check_master_password = false
             }
         }
@@ -96,7 +93,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
         mBind.confirm.setOnClickListener(this)
 
         mBind.sendVerifyCode.setOnClickListener {
-            loginViewModel.sendVerifyCode()
+            if (check_email) {
+                loginViewModel.sendVerifyCode(mBind.email.text.toString())
+            }
         }
     }
 

@@ -22,10 +22,14 @@ class NetworkViewModel : ViewModel() {
         masterPassword: String,
         callback: () -> Unit
     ) {
+        val user = mapOf(
+            "email" to e_mail,
+            "hLoginPassword" to password,
+            "hMasterPassword" to masterPassword
+        )
         val map = mapOf(
-            "e_mail" to e_mail,
-            "hash_password" to password,
-            "master_password" to masterPassword
+            "user" to user,
+            "device" to android.os.Build.DEVICE
         )
         Api.post("login", map, object : Api.Handler {
             override fun success(jsonObject: JSONObject) {

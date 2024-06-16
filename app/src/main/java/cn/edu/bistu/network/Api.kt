@@ -3,6 +3,7 @@ package cn.edu.bistu.network
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import cn.edu.bistu.util.JsonUtil
 import cn.edu.bistu.util.PreferencesKey
 import cn.edu.bistu.util.SPUtil
 import cn.edu.bistu.util.ToastUtil
@@ -64,12 +65,10 @@ object Api {
         })
     }
 
-    fun post(url: String, params: Map<String, String>, handler: Handler, token: Boolean = false) {
-        val jsonObject = JSONObject()
-        for ((k, v) in params) {
-            jsonObject.put(k, v)
-        }
-        val body = jsonObject.toString().toRequestBody("application/json".toMediaType())
+    fun post(url: String, params: Map<String, Any>, handler: Handler, token: Boolean = false) {
+        val json = JsonUtil.gson?.toJson(params)
+
+        val body = json.toString().toRequestBody("application/json".toMediaType())
 
         val request = if (token) {
             val t = SPUtil.getString(PreferencesKey.TOKEN)

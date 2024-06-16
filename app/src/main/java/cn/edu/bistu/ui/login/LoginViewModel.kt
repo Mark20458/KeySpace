@@ -3,6 +3,12 @@ package cn.edu.bistu.ui.login
 import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import cn.edu.bistu.network.Api
+import cn.edu.bistu.util.ToastUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 
 class LoginViewModel : ViewModel() {
@@ -35,9 +41,29 @@ class LoginViewModel : ViewModel() {
             }
         }
 
-    fun sendVerifyCode() {
+    fun sendVerifyCode(e_mail: String) {
         if (isOver.value == false) return
         isOver.value = false
         countDownTimer.start()
+        getVerifyCode(e_mail)
+    }
+
+    /**
+     * 获取验证码
+     */
+    fun getVerifyCode(e_mail: String) {
+        Api.get("verify_code/${e_mail}", object : Api.Handler {
+            override fun success(jsonObject: JSONObject) {
+                viewModelScope.launch(Dispatchers.Main) {
+                    ToastUtil.show(jsonObject.getString("msg"))
+                    if (jsonObject.getInt("code") == 101) return@launch
+                    else {
+                        countDownTimer.cancel()
+                        isOver.value = true
+                        countDownTime = TOTAL_TIME
+                    }
+                }
+            }
+        })
     }
 }
